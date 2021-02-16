@@ -1,0 +1,66 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  # googleCloudBuild:
+  #   projectId: ticketing-dev-301322
+  artifacts:
+    - image: phonofidelic/auth
+      # - image: us.gcr.io/ticketing-dev-301322/auth
+      context: auth
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: phonofidelic/client
+      # - image: us.gcr.io/ticketing-dev-301322/client
+      context: client
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    - image: phonofidelic/tickets
+      # - image: us.gcr.io/ticketing-dev-301322/tickets
+      context: tickets
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: phonofidelic/orders
+      # - image: us.gcr.io/ticketing-dev-301322/orders
+      context: orders
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: phonofidelic/expiration
+      # - image: us.gcr.io/ticketing-dev-301322/expiration
+      context: expiration
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: phonofidelic/payments
+      # - image: us.gcr.io/ticketing-dev-301322/expiration
+      context: payments
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
