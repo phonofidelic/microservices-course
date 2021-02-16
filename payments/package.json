@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --poll src/index.ts",
-    "test": "JWT_KEY=asdf jest --watchAll --no-cache"
+    "test": "JWT_KEY=asdf jest --watchAll --no-cache",
+    "test:ci": "JWT_KEY=asdf jest"
   },
   "jest": {
     "preset": "ts-jest",
